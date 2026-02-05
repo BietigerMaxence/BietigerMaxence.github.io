@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Maxence BIETIGER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'], // Pour le look "Code"
+                    },
+                    colors: {
+                        bg: '#050505',
+                        panel: '#111111',
+                        accent: '#00ff9d', // Vert fluo "Hacker"
+                        accentdim: 'rgba(0, 255, 157, 0.1)',
+                        textsec: '#888888'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e0e0e0;
+            /* Grille de fond subtile style "Blueprint" */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Sidebar Glass Effect */
+        .sidebar {
+            background: rgba(10, 10, 10, 0.95);
+            border-right: 1px solid #222;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00ff9d; }
+
+        /* Card Style */
+        .tech-card {
+            background: #111;
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+        }
+        .tech-card:hover {
+            border-color: #00ff9d;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.15);
+        }
+
+        /* Carousel Animations */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            padding: 1rem;
+        }
+
+        /* Neon Text utility */
+        .text-neon {
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+
+        <aside class="sidebar w-full lg:w-72 lg:h-screen lg:fixed flex flex-col justify-between z-50">
+            <div class="p-8">
+                <div class="mb-10 flex items-center gap-4 lg:block">
+                    <div class="w-16 h-16 lg:w-24 lg:h-24 rounded-full border-2 border-accent p-1 mb-4 relative mx-auto lg:mx-0">
+                         <img src="https://ui-avatars.com/api/?name=Maxence+B&background=111&color=00ff9d&bold=true" class="rounded-full w-full h-full object-cover">
+                         <div class="absolute bottom-0 right-0 w-4 h-4 bg-accent rounded-full border-2 border-black animate-pulse"></div>
+                    </div>
+                    <div>
+                        <h1 class="font-mono text-2xl font-bold tracking-tighter text-white">MAXENCE.B</h1>
+                        <p class="text-xs text-accent font-mono uppercase tracking-widest mt-1">SISR // ADMIN SYS</p>
+                    </div>
+                </div>
+
+                <nav class="space-y-2">
+                    <a href="#home" class="flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
+                        <i class="fa-solid fa-terminal text-textsec group-hover:text-accent"></i> <span>Dashboard</span>
+                    </a>
+                    <a href="#skills" class="flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
+                        <i class="fa-solid fa-layer-group text-textsec group-hover:text-accent"></i> <span>Stack Technique</span>
+                    </a>
+                    <a href="#experience" class="flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
+                        <i class="fa-solid fa-timeline text-textsec group-hover:text-accent"></i> <span>Historique (XP)</span>
+                    </a>
+                    <a href="#certifs" class="flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
+                        <i class="fa-solid fa-certificate text-textsec group-hover:text-accent"></i> <span>Veille Techno</span>
+                    </a>
+                    <a href="#veille" class="flex items-center gap-3 px-4 py-3 rounded text-sm bg-accentdim text-accent border-r-2 border-accent font-semibold transition">
+                        <i class="fa-solid fa-satellite-dish"></i> <span>Certifications</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="p-8 border-t border-white/5">
+                <div class="flex gap-4 text-textsec justify-center lg:justify-start">
+                    <a href="#" class="hover:text-white"><i class="fa-brands fa-github text-xl"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                    <a href="mailto:email@test.com" class="hover:text-white"><i class="fa-solid fa-envelope text-xl"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 lg:ml-72 p-6 lg:p-12 relative">
+            
+            <div class="absolute top-6 right-6 font-mono text-xs text-textsec hidden lg:block">
+                SYSTEM STATUS: <span class="text-accent">ONLINE</span><br>
+                LOC: PARIS // EFREI
+            </div>
+
+            <section id="home" class="mb-20 pt-10">
+                <p class="font-mono text-accent mb-2"> > init_sequence_start...</p>
+                <h2 class="text-5xl lg:text-7xl font-bold font-mono text-white mb-6 uppercase leading-tight">
+                    Architecture <br> & Sécurité
+                </h2>
+                <p class="max-w-2xl text-textsec text-lg leading-relaxed border-l-2 border-accent pl-6">
+                    Étudiant en <strong class="text-white">BTS SIO SISR</strong>. Je conçois des architectures résilientes et je sécurise les flux de données. Actuellement en alternance chez <span class="text-white">Culligan</span>.
+                </p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+                    <div class="bg-panel p-4 border border-white/5 rounded">
+                        <div class="text-2xl font-bold text-white">2</div>
+                        <div class="text-xs text-textsec uppercase font-mono">Ans d'expérience</div>
+                    </div>
+                    <div class="bg-panel p-4 border border-white/5 rounded">
+                        <div class="text-2xl font-bold text-white">3+</div>
+                        <div class="text-xs text-textsec uppercase font-mono">Certifs visées</div>
+                    </div>
+                    <div class="bg-panel p-4 border border-white/5 rounded">
+                        <div class="text-2xl font-bold text-white">10+</div>
+                        <div class="text-xs text-textsec uppercase font-mono">Projets Labs</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="mb-20">
+                <h3 class="font-mono text-2xl text-white mb-8 flex items-center gap-2">
+                    <span class="text-accent">#</span> SKILL_SET
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="tech-card p-6 rounded-lg">
+                        <h4 class="text-accent font-mono mb-4 border-b border-white/10 pb-2">SYS_ADMIN</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-sm"><span>Windows Server / AD</span><span class="text-textsec">████████░░ 80%</span></div>
+                            <div class="flex justify-between text-sm"><span>Linux (Debian/Ubuntu)</span><span class="text-textsec">███████░░░ 70%</span></div>
+                            <div class="flex justify-between text-sm"><span>Powershell / Bash</span><span class="text-textsec">██████░░░░ 60%</span></div>
+                        </div>
+                    </div>
+                    <div class="tech-card p-6 rounded-lg">
+                        <h4 class="text-accent font-mono mb-4 border-b border-white/10 pb-2">NET_SEC</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between text-sm"><span>Firewalling (pfSense)</span><span class="text-textsec">████████░░ 80%</span></div>
+                            <div class="flex justify-between text-sm"><span>SIEM (Wazuh/Splunk)</span><span class="text-textsec">█████░░░░░ 50%</span></div>
+                            <div class="flex justify-between text-sm"><span>TCP/IP & OSI</span><span class="text-textsec">█████████░ 90%</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="mb-20">
+                <h3 class="font-mono text-2xl text-white mb-8 flex items-center gap-2">
+                    <span class="text-accent">#</span> CHANGELOG (XP)
+                </h3>
+                <div class="relative border-l border-white/10 ml-3 space-y-12">
+                    
+                    <div class="relative pl-8">
+                        <div class="absolute -left-1.5 top-1 w-3 h-3 bg-accent rounded-full shadow-[0_0_10px_#00ff9d]"></div>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
+                            <h4 class="text-xl font-bold text-white">Alternant Technicien S&R</h4>
+                            <span class="font-mono text-xs text-accent bg-accentdim px-2 py-1 rounded">Current</span>
+                        </div>
+                        <div class="text-textsec text-sm font-mono mb-4">@ Culligan France | 2024 - Présent</div>
+                        <ul class="list-none space-y-2 text-gray-400">
+                            <li><span class="text-accent">></span> Déploiement flottes via Intune/Autopilot.</li>
+                            <li><span class="text-accent">></span> Hardening des postes clients (Win 11).</li>
+                            <li><span class="text-accent">></span> Gestion tickets N2/N3 sur infrastructure hybride.</li>
+                        </ul>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute -left-1.5 top-1 w-3 h-3 bg-gray-600 rounded-full"></div>
+                        <h4 class="text-xl font-bold text-white">Projets Académiques & Labs</h4>
+                        <div class="text-textsec text-sm font-mono mb-4">@ Efrei Paris | 2023 - 2024</div>
+                        <p class="text-gray-400 text-sm">Création d'infrastructures virtuelles complètes (AD, DNS, DHCP, FW) sous VMware et Proxmox. Pentesting basique sur machines HTB.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="veille" class="mb-20">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h3 class="font-mono text-2xl text-white flex items-center gap-2">
+                            <span class="text-accent">#</span> INTELLIGENCE_FEED
+                        </h3>
+                        <p class="text-sm text-textsec mt-2">Sujets de veille active [2024-2025]</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="moveSlide(-1)" class="w-10 h-10 border border-white/20 hover:border-accent hover:text-accent rounded flex items-center justify-center transition">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button onclick="moveSlide(1)" class="w-10 h-10 border border-white/20 hover:border-accent hover:text-accent rounded flex items-center justify-center transition">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-hidden rounded-xl bg-panel border border-white/10 relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
+                    
+                    <div id="carousel-track" class="carousel-track">
+                        </div>
+                </div>
+            </section>
+
+             <section id="certifs" class="pb-20">
+                <h3 class="font-mono text-2xl text-white mb-8 flex items-center gap-2">
+                    <span class="text-accent">#</span> CERTIFICATIONS
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="tech-card p-6 rounded text-center border-t-4 border-t-accent">
+                        <div class="font-bold text-xl text-white mb-2">BTL1</div>
+                        <div class="text-xs font-mono text-textsec mb-4">BLUE TEAM LEVEL 1</div>
+                        <span class="px-2 py-1 bg-green-900/30 text-green-400 text-xs rounded border border-green-900">ACQUISE</span>
+                    </div>
+                    <div class="tech-card p-6 rounded text-center border-t-4 border-t-yellow-500 opacity-80">
+                        <div class="font-bold text-xl text-white mb-2">CDSA</div>
+                        <div class="text-xs font-mono text-textsec mb-4">DEFENSIVE SECURITY</div>
+                        <span class="px-2 py-1 bg-yellow-900/30 text-yellow-400 text-xs rounded border border-yellow-900 animate-pulse">EN COURS...</span>
+                    </div>
+                    <div class="tech-card p-6 rounded text-center border-t-4 border-t-gray-700 opacity-50">
+                        <div class="font-bold text-xl text-white mb-2">BTL2</div>
+                        <div class="text-xs font-mono text-textsec mb-4">ADVANCED LEVEL</div>
+                        <span class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded border border-gray-700">LOCKED</span>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Données de la veille (5 Sujets Pertinents pour SISR/Cyber)
+        const veilleData = [
+            {
+                title: "1. L'IA Générative en Cybersécurité",
+                tag: "THREAT INTEL",
+                desc: "L'arme à double tranchant. Les attaquants l'utilisent pour des phishings parfaits (WormGPT), tandis que les SOC l'utilisent pour l'analyse automatisée d'incidents (Microsoft Security Copilot).",
+                icon: "fa-robot"
+            },
+            {
+                title: "2. Directive NIS 2",
+                tag: "GOUVERNANCE",
+                desc: "Nouvelle réglementation européenne applicable depuis octobre 2024. Elle élargit considérablement les obligations de cybersécurité à de nouveaux secteurs (énergie, transports, santé) et impose une responsabilité pénale aux dirigeants.",
+                icon: "fa-scale-balanced"
+            },
+            {
+                title: "3. Architecture Zero Trust (ZTA)",
+                tag: "INFRASTRUCTURE",
+                desc: "Le modèle 'Château-fort' est mort. Le principe : 'Never Trust, Always Verify'. Segmentation du réseau, MFA partout et gestion des accès à moindre privilège sont devenus la norme.",
+                icon: "fa-user-lock"
+            },
+            {
+                title: "4. Cryptographie Post-Quantique",
+                tag: "CRYPTO",
+                desc: "Avec l'avancée des ordinateurs quantiques, le chiffrement actuel (RSA) est menacé. Le NIST a standardisé en 2024 les premiers algorithmes résistants (Kyber). La migration doit commencer maintenant.",
+                icon: "fa-microchip"
+            },
+            {
+                title: "5. Sécurité Cloud & Kubernetes",
+                tag: "CLOUD SEC",
+                desc: "L'adoption massive des conteneurs (K8s) crée de nouvelles surfaces d'attaque. Focus sur la sécurité de la chaîne d'approvisionnement (Supply Chain) et la protection des secrets dans les environnements DevOps.",
+                icon: "fa-cloud"
+            }
+        ];
+
+        const track = document.getElementById('carousel-track');
+        let currentIndex = 0;
+
+        // 1. Générer le HTML des slides
+        veilleData.forEach((item) => {
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            slide.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-8 items-center h-full p-4 lg:p-8">
+                    <div class="w-20 h-20 rounded-full bg-accentdim flex items-center justify-center border border-accent flex-shrink-0">
+                        <i class="fa-solid ${item.icon} text-3xl text-accent"></i>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <span class="text-xs font-mono text-accent border border-accent px-2 py-1 rounded mb-2 inline-block">${item.tag}</span>
+                        <h4 class="text-2xl font-bold text-white mb-4">${item.title}</h4>
+                        <p class="text-gray-400 leading-relaxed">${item.desc}</p>
+                    </div>
+                </div>
+            `;
+            track.appendChild(slide);
+        });
+
+        // 2. Fonction de déplacement
+        function updateCarousel() {
+            const width = track.clientWidth;
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        function moveSlide(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) {
+                currentIndex = veilleData.length - 1;
+            } else if (currentIndex >= veilleData.length) {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        }
+
+        // Auto-play (toutes les 5 secondes)
+        setInterval(() => {
+            moveSlide(1);
+        }, 8000);
+
+        // Responsive resize fix
+        window.addEventListener('resize', updateCarousel);
+    </script>
+</body>
+</html>
