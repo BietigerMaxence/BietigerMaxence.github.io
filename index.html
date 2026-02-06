@@ -163,7 +163,8 @@
             <div class="p-8 border-t border-white/5">
                 <div class="flex gap-4 text-textsec justify-center lg:justify-start">
                     <a href="#" class="hover:text-white"><i class="fa-brands fa-github text-xl"></i></a>
-                    <a href="https://www.linkedin.com/in/maxence-bietiger-7b0ba0283/" target="_blank" class="hover:text-white"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                    <a href="https://www.linkedin.com/in/maxence-bietiger-7b0ba0283/" target="_blank"
+                        class="hover:text-white"><i class="fa-brands fa-linkedin text-xl"></i></a>
                     <a href="mailto:[EMAIL_ADDRESS]" class="hover:text-white"><i
                             class="fa-solid fa-envelope text-xl"></i></a>
                 </div>
@@ -208,20 +209,32 @@
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="tech-card p-6 rounded-lg">
-                        <h4 class="text-accent font-mono mb-4 border-b border-white/10 pb-2">SYS_ADMIN</h4>
+                        <h4 class="text-accent font-mono mb-4 border-b border-white/10 pb-2">SYS_ADMIN_SUP</h4>
                         <div class="space-y-3">
-                            <div class="flex justify-between text-sm"><span>Windows Server / AD</span></div>
-                            <div class="flex justify-between text-sm"><span>Linux (Debian / Ubuntu)</span></div>
-                            <div class="flex justify-between text-sm"><span>Powershell / Bash</span></div>
+                            <div class="flex items-center gap-2 text-sm"><i
+                                    class="fa-brands fa-windows text-accent"></i><span>Windows Server / AD</span></div>
+                            <div class="flex items-center gap-2 text-sm"><i
+                                    class="fa-brands fa-linux text-accent"></i><span>Linux (Debian / Ubuntu)</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm"><i
+                                    class="fa-solid fa-terminal text-accent"></i><span>Powershell / Bash</span></div>
+                            <div class="flex items-center gap-2 text-sm"><i
+                                    class="fa-solid fa-ticket text-accent"></i><span>GLPI</span></div>
+
                         </div>
                     </div>
                     <div class="tech-card p-6 rounded-lg">
                         <h4 class="text-accent font-mono mb-4 border-b border-white/10 pb-2">NET_SEC</h4>
                         <div class="space-y-3">
-                            <div class="flex justify-between text-sm"><span>Firewalling (pfSense / OPNSense)</span>
+                            <div class="flex items-center gap-2 text-sm"><i
+                                    class="fa-solid fa-shield-halved text-accent"></i><span>Firewalling (pfSense /
+                                    OPNSense)</span>
                             </div>
-                            <div class="flex justify-between text-sm"><span>SIEM (Wazuh / Splunk / ELK)</span></div>
-                            <div class="flex justify-between text-sm"><span>TCP/IP & OSI</span></div>
+                            <div class="flex items-center gap-2 text-sm"><i
+                                    class="fa-solid fa-chart-line text-accent"></i><span>SIEM (Wazuh / Splunk /
+                                    ELK)</span></div>
+                            <div class="flex items-center gap-2 text-sm"><i
+                                    class="fa-solid fa-network-wired text-accent"></i><span>TCP/IP & OSI</span></div>
                         </div>
                     </div>
                 </div>
@@ -251,7 +264,8 @@
                             <li><span class="text-accent">></span> Projet de mise en place d'un serveur GLPI.</li>
                             <li><span class="text-accent">></span> Projet de mise en place de migration de données d'une
                                 agence.</li>
-                            <li><span class="text-accent">></span> Projet de remédiation des failles les plus élevées.</li>
+                            <li><span class="text-accent">></span> Projet de remédiation des failles les plus élevées.
+                            </li>
 
                         </ul>
                     </div>
@@ -276,32 +290,105 @@
             </section>
 
             <section id="veille" class="mb-20">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h3 class="font-mono text-2xl text-white flex items-center gap-2">
-                            <span class="text-accent">#</span> INTELLIGENCE_FEED
-                        </h3>
-                        <p class="text-sm text-textsec mt-2">Sujets de veille active [2024-2025]</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="moveSlide(-1)"
-                            class="w-10 h-10 border border-white/20 hover:border-accent hover:text-accent rounded flex items-center justify-center transition">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        <button onclick="moveSlide(1)"
-                            class="w-10 h-10 border border-white/20 hover:border-accent hover:text-accent rounded flex items-center justify-center transition">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                    </div>
+                <div class="mb-8">
+                    <h3 class="font-mono text-2xl text-white flex items-center gap-2">
+                        <span class="text-accent">#</span> INTELLIGENCE_FEED
+                    </h3>
+                    <p class="text-sm text-textsec mt-2 font-mono">
+                        <span class="text-accent">></span> Sujets de veille active [2024-2025] :: <span
+                            class="animate-pulse">MONITORING_ON</span>
+                    </p>
                 </div>
 
-                <div class="overflow-hidden rounded-xl bg-panel border border-white/10 relative">
+                <!-- Bento Grid Container -->
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+
+                    <!-- Card 1: Passwordless (Grande carte) -->
                     <div
-                        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50">
+                        class="md:col-span-4 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i class="fa-solid fa-fingerprint text-9xl text-accent transform rotate-12"></i>
+                        </div>
+                        <div class="relative z-10 flex flex-col justify-between h-full">
+                            <div>
+                                <span
+                                    class="text-xs font-mono text-accent border border-accent/30 bg-accent/5 px-2 py-1 rounded mb-4 inline-block">IAM
+                                    & AUTH</span>
+                                <h4
+                                    class="text-2xl font-bold text-white mb-2 group-hover:text-accent transition-colors">
+                                    L'Ère du "Passwordless"</h4>
+                            </div>
+                            <p class="text-gray-400 text-sm leading-relaxed max-w-lg mt-4">
+                                La fin des mots de passe ? L'adoption massive de FIDO2 et des Passkeys (Windows Hello
+                                for Business) transforme l'expérience utilisateur et élimine 80% des vecteurs d'attaques
+                                liés aux identifiants.
+                            </p>
+                        </div>
                     </div>
 
-                    <div id="carousel-track" class="carousel-track">
+                    <!-- Card 2: IaC (Petite carte verticale) -->
+                    <div
+                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300 flex flex-col justify-between">
+                        <div class="absolute -bottom-4 -right-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i class="fa-solid fa-code-branch text-8xl text-accent"></i>
+                        </div>
+                        <div>
+                            <span
+                                class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-4 inline-block">AUTOMATION</span>
+                            <h4 class="text-xl font-bold text-white mb-1">Infra as Code (IaC)</h4>
+                        </div>
+                        <p class="text-gray-400 text-xs mt-4 relative z-10">
+                            Vers des infras immuables. Terraform et Ansible deviennent les standards pour déployer et
+                            sécuriser des environnements complexes en quelques minutes.
+                        </p>
                     </div>
+
+                    <!-- Card 3: XDR (Petite carte) -->
+                    <div
+                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
+                        <div class="absolute top-2 right-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i class="fa-solid fa-shield-virus text-6xl text-accent"></i>
+                        </div>
+                        <span
+                            class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-3 inline-block">DEFENSE</span>
+                        <h4 class="text-lg font-bold text-white mb-2">L'Essor des XDR</h4>
+                        <p class="text-gray-400 text-xs">
+                            Au-delà de l'EDR. Corrélation automatique des menaces sur les endpoints, le réseau et le
+                            cloud pour une réponse unifiée.
+                        </p>
+                    </div>
+
+                    <!-- Card 4: AD Security (Moyenne carte) -->
+                    <div
+                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
+                        <div class="absolute -right-2 top-10 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i class="fa-brands fa-windows text-7xl text-accent"></i>
+                        </div>
+                        <span
+                            class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-3 inline-block">AD
+                            SEC</span>
+                        <h4 class="text-lg font-bold text-white mb-2">Hardening Active Directory</h4>
+                        <p class="text-gray-400 text-xs">
+                            L'AD reste la cible #1. Focus sur le "Tiering Model", la protection des comptes à privilèges
+                            et la détection des chemins d'attaque (BloodHound).
+                        </p>
+                    </div>
+
+                    <!-- Card 5: Souveraineté (Moyenne carte) -->
+                    <div
+                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
+                        <div class="absolute bottom-0 right-0 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <i class="fa-solid fa-server text-7xl text-accent"></i>
+                        </div>
+                        <span
+                            class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-3 inline-block">GOUVERNANCE</span>
+                        <h4 class="text-lg font-bold text-white mb-2">Souveraineté & Cloud</h4>
+                        <p class="text-gray-400 text-xs">
+                            La montée du Cloud de Confiance (SecNumCloud) face au Cloud Act américain. Enjeux
+                            géopolitiques majeurs pour les données sensibles.
+                        </p>
+                    </div>
+
                 </div>
             </section>
 
@@ -357,85 +444,6 @@
     </div>
 
     <script>
-        const veilleData = [
-            {
-                title: "1. L'IA Générative en Cybersécurité",
-                tag: "THREAT INTEL",
-                desc: "L'arme à double tranchant. Les attaquants l'utilisent pour des phishings parfaits (WormGPT), tandis que les SOC l'utilisent pour l'analyse automatisée d'incidents (Microsoft Security Copilot).",
-                icon: "fa-robot"
-            },
-            {
-                title: "2. Directive NIS 2",
-                tag: "GOUVERNANCE",
-                desc: "Nouvelle réglementation européenne applicable depuis octobre 2024. Elle élargit considérablement les obligations de cybersécurité à de nouveaux secteurs (énergie, transports, santé) et impose une responsabilité pénale aux dirigeants.",
-                icon: "fa-scale-balanced"
-            },
-            {
-                title: "3. Architecture Zero Trust (ZTA)",
-                tag: "INFRASTRUCTURE",
-                desc: "Le modèle 'Château-fort' est mort. Le principe : 'Never Trust, Always Verify'. Segmentation du réseau, MFA partout et gestion des accès à moindre privilège sont devenus la norme.",
-                icon: "fa-user-lock"
-            },
-            {
-                title: "4. Cryptographie Post-Quantique",
-                tag: "CRYPTO",
-                desc: "Avec l'avancée des ordinateurs quantiques, le chiffrement actuel (RSA) est menacé. Le NIST a standardisé en 2024 les premiers algorithmes résistants (Kyber). La migration doit commencer maintenant.",
-                icon: "fa-microchip"
-            },
-            {
-                title: "5. Sécurité Cloud & Kubernetes",
-                tag: "CLOUD SEC",
-                desc: "L'adoption massive des conteneurs (K8s) crée de nouvelles surfaces d'attaque. Focus sur la sécurité de la chaîne d'approvisionnement (Supply Chain) et la protection des secrets dans les environnements DevOps.",
-                icon: "fa-cloud"
-            }
-        ];
-
-        const track = document.getElementById('carousel-track');
-        let currentIndex = 0;
-
-        // 1. Générer le HTML des slides
-        veilleData.forEach((item) => {
-            const slide = document.createElement('div');
-            slide.className = 'carousel-slide';
-            slide.innerHTML = `
-                <div class="flex flex-col md:flex-row gap-8 items-center h-full p-4 lg:p-8">
-                    <div class="w-20 h-20 rounded-full bg-accentdim flex items-center justify-center border border-accent flex-shrink-0">
-                        <i class="fa-solid ${item.icon} text-3xl text-accent"></i>
-                    </div>
-                    <div class="flex-1 text-center md:text-left">
-                        <span class="text-xs font-mono text-accent border border-accent px-2 py-1 rounded mb-2 inline-block">${item.tag}</span>
-                        <h4 class="text-2xl font-bold text-white mb-4">${item.title}</h4>
-                        <p class="text-gray-400 leading-relaxed">${item.desc}</p>
-                    </div>
-                </div>
-            `;
-            track.appendChild(slide);
-        });
-
-        // 2. Fonction de déplacement
-        function updateCarousel() {
-            const width = track.clientWidth;
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-
-        function moveSlide(direction) {
-            currentIndex += direction;
-            if (currentIndex < 0) {
-                currentIndex = veilleData.length - 1;
-            } else if (currentIndex >= veilleData.length) {
-                currentIndex = 0;
-            }
-            updateCarousel();
-        }
-
-        // Auto-play (toutes les 5 secondes)
-        setInterval(() => {
-            moveSlide(1);
-        }, 8000);
-
-        // Responsive resize fix
-        window.addEventListener('resize', updateCarousel);
-
         // --- SCROLL SPY & NAVIGATION ACTIVE STATE ---
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('section');
@@ -452,9 +460,6 @@
                 const icon = link.querySelector('i');
                 if (icon) {
                     icon.classList.remove('text-textsec', 'group-hover:text-accent');
-                    // icon.classList.add('text-accent'); // Parent already has text-accent, but let's be safe if needed or let inheritance work
-                    // Actually parent text-accent should be enough if icon doesn't have a color class overriding it.
-                    // But text-textsec overrides it. So removing text-textsec is key.
                 }
             };
 
