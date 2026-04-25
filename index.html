@@ -1,518 +1,269 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Maxence BIETIGER</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
-        rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Space Grotesk', 'monospace'],
-                    },
-                    colors: {
-                        bg: '#050505',
-                        panel: '#111111',
-                        accent: '#00ff9d',
-                        accentdim: 'rgba(0, 255, 157, 0.1)',
-                        textsec: '#888888'
-                    }
-                }
-            }
-        }
-    </script>
-
+    <title>Maxence Bietiger — Admin Sys & Sécurité</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* Fix global pour empêcher le scroll horizontal */
-        html,
-        body {
-            overflow-x: hidden;
-            width: 100%;
-            height: 100%;
-        }
+        :root{--bg:#0a0d13;--fg:#e4e8f0;--muted:#6b7280;--accent:#38bdf8;--accent2:#818cf8;--glass:rgba(255,255,255,0.035);--glass-border:rgba(255,255,255,0.07);--glass-hover:rgba(255,255,255,0.06)}*{margin:0;padding:0;box-sizing:border-box}html,body{overflow-x:hidden}body{background:var(--bg);color:var(--fg);font-family:'Outfit',sans-serif;font-weight:400;line-height:1.6;font-size:16px}.glow-tl,.glow-br{position:fixed;pointer-events:none;z-index:0;border-radius:50%}.glow-tl{top:-15%;left:-8%;width:55vw;height:55vw;background:radial-gradient(circle,rgba(56,189,248,0.07) 0%,transparent 55%)}.glow-br{bottom:-18%;right:-8%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(129,140,248,0.05) 0%,transparent 55%)}::selection{background:var(--accent);color:var(--bg)}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#1e2330;border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}.container{max-width:1060px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
 
-        body {
-            background-color: #050505;
-            color: #e0e0e0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
+        /* NAV */
+        nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(10,13,19,0.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:100px;padding:0.5rem 0.7rem 0.5rem 1.2rem;display:flex;align-items:center;gap:0.2rem}
+        nav .logo{font-weight:800;font-size:0.9rem;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-right:0.7rem}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;padding:0.4rem 0.75rem;border-radius:100px;transition:all 0.25s}
+        nav a:hover{color:var(--fg);background:rgba(255,255,255,0.05)}
+        nav a.active{color:var(--accent);background:rgba(56,189,248,0.1)}
 
-        /* Sidebar Glass Effect & Scroll management */
-        .sidebar {
-            background: rgba(10, 10, 10, 0.95);
-            border-right: 1px solid #222;
-            /* Permet de scroller DANS le menu si l'écran est petit en hauteur */
-            overflow-y: auto;
-        }
+        /* GLASS */
+        .glass{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:14px;transition:all 0.3s}
+        .glass:hover{background:var(--glass-hover);border-color:rgba(255,255,255,0.1)}
 
-        /* Masquer la scrollbar de la sidebar pour chrome/safari/opera */
-        .sidebar::-webkit-scrollbar {
-            display: none;
-        }
+        /* HERO */
+        .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 0 3rem}
+        .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.78rem;font-weight:500;color:var(--accent);background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.12);border-radius:100px;padding:0.35rem 1rem;margin-bottom:2rem;opacity:0;animation:fadeUp .7s .1s forwards}
+        .hero-badge .dot{width:5px;height:5px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+        .hero h1{font-weight:800;font-size:clamp(3rem,7vw,5.5rem);line-height:1.05;letter-spacing:-0.04em;margin-bottom:1.5rem;opacity:0;animation:fadeUp .7s .25s forwards}
+        .hero h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero-sub{max-width:500px;color:var(--muted);font-size:1.1rem;line-height:1.7;opacity:0;animation:fadeUp .7s .4s forwards}
+        .hero-sub strong{color:var(--fg);font-weight:600}
+        .hero-sub a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--glass-border);transition:border-color .3s}
+        .hero-sub a:hover{border-color:var(--accent)}
+        .hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;opacity:0;animation:fadeUp .7s .55s forwards}
+        .hero-stat{text-align:center}
+        .hero-stat .num{font-weight:800;font-size:2rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero-stat .label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
 
-        /* Masquer pour IE, Edge et Firefox */
-        .sidebar {
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
+        /* ACTION BUTTONS */
+        .hero-actions{display:flex;gap:.8rem;margin-top:2.5rem;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .7s .7s forwards}
+        .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:100px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .25s}
+        .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg)}
+        .btn-primary:hover{box-shadow:0 0 20px rgba(56,189,248,.3);transform:translateY(-1px)}
+        .btn-outline{border:1px solid var(--glass-border);color:var(--fg);background:var(--glass)}
+        .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
 
-        /* Custom Scrollbar pour la page principale */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
+        /* SECTIONS */
+        section{padding:3.5rem 0}
+        .section-header{margin-bottom:2rem}
+        .section-title{font-weight:700;font-size:1.9rem;letter-spacing:-0.03em}
+        .section-sub{color:var(--muted);font-size:.88rem;margin-top:.3rem}
 
-        ::-webkit-scrollbar-track {
-            background: #000;
-        }
+        /* SKILLS */
+        .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+        .skill-card{padding:1.5rem;display:flex;align-items:flex-start;gap:1rem}
+        .skill-card .s-icon{font-size:1.15rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:linear-gradient(135deg,rgba(56,189,248,.1),rgba(129,140,248,.1));color:var(--accent);flex-shrink:0}
+        .skill-card h4{font-weight:600;font-size:.95rem;margin-bottom:.3rem}
+        .skill-card p{color:var(--muted);font-size:.8rem;line-height:1.5}
 
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
+        /* TIMELINE */
+        .timeline{position:relative;padding-left:1.5rem}
+        .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent)}
+        .tl-item{padding-bottom:2.2rem;position:relative}
+        .tl-item:last-child{padding-bottom:0}
+        .tl-item::before{content:'';position:absolute;left:-1.5rem;top:7px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(56,189,248,.35);transform:translateX(-3px)}
+        .tl-item .date{font-size:.78rem;color:var(--accent);font-weight:600;letter-spacing:.03em;margin-bottom:.4rem}
+        .tl-item h3{font-weight:700;font-size:1.2rem;margin-bottom:.15rem}
+        .tl-item .org{color:var(--muted);font-size:.88rem;margin-bottom:.6rem}
+        .tl-item .tasks{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+        .tl-item .tasks li{color:var(--muted);font-size:.88rem;padding-left:1rem;position:relative}
+        .tl-item .tasks li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00ff9d;
-        }
+        /* VEILLE ARTICLE */
+        .veille-article{padding:2.2rem}
+        .veille-article .topic-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .8rem;border-radius:100px;background:rgba(56,189,248,.08);color:var(--accent);margin-bottom:1.2rem}
+        .veille-article h3{font-weight:700;font-size:1.5rem;letter-spacing:-0.02em;margin-bottom:1rem}
+        .veille-article h4{font-weight:700;font-size:1rem;color:var(--accent);margin:1.5rem 0 .6rem}
+        .veille-article p{color:var(--muted);font-size:.9rem;line-height:1.8;max-width:700px}
+        .veille-article p strong{color:var(--fg);font-weight:600}
+        .veille-stats{display:flex;gap:1rem;margin:1.5rem 0;flex-wrap:wrap}
+        .veille-stat{background:rgba(255,255,255,.03);border:1px solid var(--glass-border);border-radius:10px;padding:.8rem 1.2rem;text-align:center;flex:1;min-width:120px}
+        .veille-stat .v-num{font-weight:800;font-size:1.4rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .veille-stat .v-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.2rem}
+        .veille-sources{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+        .veille-sources a{display:inline-flex;align-items:center;gap:.35rem;color:var(--accent);text-decoration:none;font-size:.78rem;font-weight:600;padding:.35rem .8rem;border:1px solid rgba(56,189,248,.2);border-radius:100px;transition:all .3s}
+        .veille-sources a:hover{background:rgba(56,189,248,.08)}
 
-        .tech-card {
-            background: #111;
-            border: 1px solid #222;
-            transition: all 0.3s ease;
-        }
+        /* CERTS */
+        .certs-grid{display:flex;flex-direction:column;gap:.6rem}
+        .cert-item{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem}
+        .cert-left{display:flex;align-items:center;gap:1rem}
+        .cert-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+        .cert-icon.done{background:rgba(56,189,248,.1);color:var(--accent)}
+        .cert-icon.wip{background:rgba(251,191,36,.1);color:#fbbf24}
+        .cert-icon.locked{background:rgba(255,255,255,.03);color:#3f3f46}
+        .cert-info h4{font-weight:700;font-size:1.1rem}
+        .cert-info .desc{font-size:.78rem;color:var(--muted);margin-top:.1rem}
+        .cert-right{display:flex;align-items:center;gap:.8rem}
+        .cert-pill{font-size:.7rem;font-weight:600;padding:.3rem .75rem;border-radius:100px;text-transform:uppercase;letter-spacing:.05em}
+        .cert-pill.done{background:rgba(56,189,248,.1);color:var(--accent)}
+        .cert-pill.wip{background:rgba(251,191,36,.08);color:#fbbf24}
+        .cert-pill.locked{color:#3f3f46}
+        .cert-link{color:var(--muted);font-size:.8rem;transition:color .3s}
+        .cert-link:hover{color:var(--accent)}
 
-        .tech-card:hover {
-            border-color: #00ff9d;
-            box-shadow: 0 0 15px rgba(0, 255, 157, 0.15);
-        }
+        /* FOOTER */
+        footer{border-top:1px solid var(--glass-border);padding:2.5rem 0;display:flex;justify-content:space-between;align-items:center}
+        footer .copy{font-size:.8rem;color:var(--muted)}
+        footer .socials{display:flex;gap:1.2rem}
+        footer .socials a{color:var(--muted);font-size:1.1rem;transition:color .3s}
+        footer .socials a:hover{color:var(--accent)}
 
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
+        @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+        .reveal{opacity:0;transform:translateY(25px);transition:opacity .6s,transform .6s}
+        .reveal.visible{opacity:1;transform:translateY(0)}
 
-        .carousel-slide {
-            min-width: 100%;
-            padding: 1rem;
-        }
+        @media(max-width:768px){.skills-grid{grid-template-columns:1fr 1fr}nav{gap:.1rem;padding:.4rem .5rem .4rem .9rem}nav a{font-size:.7rem;padding:.35rem .5rem}.hero h1{font-size:2.6rem}.hero-stats{gap:1.5rem}.cert-item{flex-direction:column;align-items:flex-start;gap:.8rem}.cert-right{align-self:flex-end}footer{flex-direction:column;gap:1rem;text-align:center}.hero-actions{flex-direction:column;align-items:center}.veille-stats{flex-direction:column}}
+        @media(max-width:480px){.skills-grid{grid-template-columns:1fr}nav a:not(:first-of-type):not(:last-of-type){display:none}}
     </style>
 </head>
+<body>
+<div class="glow-tl"></div>
+<div class="glow-br"></div>
 
-<body class="antialiased">
+<nav id="mainNav">
+    <div class="logo">MB</div>
+    <a href="#skills" data-section="skills">Compétences</a>
+    <a href="#xp" data-section="xp">Parcours</a>
+    <a href="#veille" data-section="veille">Veille</a>
+    <a href="#certs" data-section="certs">Certifications</a>
+</nav>
 
-    <div class="flex flex-col lg:flex-row min-h-screen relative">
+<div class="container">
 
-        <aside class="sidebar w-full lg:w-72 lg:h-screen lg:fixed top-0 left-0 flex flex-col justify-between z-50">
-            <div class="p-8">
-                <div class="mb-10 flex items-center gap-4 lg:block">
-                    <div
-                        class="w-16 h-16 lg:w-24 lg:h-24 rounded-full border-2 border-accent p-1 mb-4 relative mx-auto lg:mx-0">
-                        <img src="https://ui-avatars.com/api/?name=Maxence+B&background=111&color=00ff9d&bold=true"
-                            class="rounded-full w-full h-full object-cover">
-                        <div
-                            class="absolute bottom-0 right-0 w-4 h-4 bg-accent rounded-full border-2 border-black animate-pulse">
-                        </div>
-                    </div>
-                    <div>
-                        <h1 class="font-mono text-2xl font-bold tracking-tighter text-white">MAXENCE.B</h1>
-                        <p class="text-xs text-accent font-mono uppercase tracking-widest mt-1">SISR // ADMIN SYS</p>
-                    </div>
-                </div>
+    <section class="hero" id="home">
+        <div class="hero-badge"><span class="dot"></span> En alternance chez Culligan France</div>
+        <h1>Architecture<br>& <span class="gradient">Sécurité</span></h1>
+        <p class="hero-sub">Étudiant en 2e année de <strong>BTS SIO SISR</strong> à <a href="https://www.efrei.fr/" target="_blank">l'EFREI Paris</a>. Spécialisé en infrastructure, Active Directory et défense des systèmes d'information.</p>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="num">2</div><div class="label">Ans d'XP</div></div>
+            <div class="hero-stat"><div class="num">3+</div><div class="label">Certifs visées</div></div>
+        </div>
+        <div class="hero-actions">
+            <a href="./Files/Tableau_de_synthèse_Epreuve_E5_BTS_SIO_2026_Maxence_Bietiger.pdf" download class="btn btn-primary"><i class="fa-solid fa-download"></i> Tableau de synthèse</a>
+            <a href="https://github.com/BietigerMaxence/Epreuve_E6" target="_blank" class="btn btn-outline"><i class="fa-brands fa-github"></i> Documents E6</a>
+        </div>
+    </section>
 
-                <nav class="space-y-2">
-                    <a href="#home"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
-                        <i class="fa-solid fa-terminal text-textsec group-hover:text-accent"></i> <span>Dashboard</span>
-                    </a>
-                    <a href="#skills"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
-                        <i class="fa-solid fa-layer-group text-textsec group-hover:text-accent"></i> <span>Stack
-                            Technique</span>
-                    </a>
-                    <a href="#experience"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
-                        <i class="fa-solid fa-timeline text-textsec group-hover:text-accent"></i> <span>Historique
-                            (XP)</span>
-                    </a>
-                    <a href="#veille"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
-                        <i class="fa-solid fa-satellite-dish text-textsec group-hover:text-accent"></i> <span>Veille
-                            Techno</span>
-                    </a>
-                    <a href="#certifs"
-                        class="nav-link flex items-center gap-3 px-4 py-3 rounded text-sm hover:bg-white/5 hover:text-accent transition group">
-                        <i class="fa-solid fa-certificate text-textsec group-hover:text-accent"></i>
-                        <span>Certifications</span>
-                    </a>
-                </nav>
+    <section id="skills">
+        <div class="section-header reveal"><div class="section-title">Compétences</div><div class="section-sub">Stack technique & outils maîtrisés</div></div>
+        <div class="skills-grid">
+            <div class="glass skill-card reveal"><div class="s-icon"><i class="fa-brands fa-windows"></i></div><div><h4>Windows Server / AD</h4><p>GPO, Tiering Model, Entra ID, identités hybrides via Adaxes</p></div></div>
+            <div class="glass skill-card reveal"><div class="s-icon"><i class="fa-brands fa-linux"></i></div><div><h4>Linux</h4><p>Debian, Ubuntu Server, administration et déploiement de services</p></div></div>
+            <div class="glass skill-card reveal"><div class="s-icon"><i class="fa-solid fa-shield-halved"></i></div><div><h4>Firewalling & Réseau</h4><p>pfSense, OPNSense, TCP/IP, OSI, segmentation réseau</p></div></div>
+            <div class="glass skill-card reveal"><div class="s-icon"><i class="fa-solid fa-chart-line"></i></div><div><h4>SIEM & Défense</h4><p>Wazuh, Splunk, ELK. Analyse de logs, détection d'intrusions</p></div></div>
+            <div class="glass skill-card reveal"><div class="s-icon"><i class="fa-solid fa-terminal"></i></div><div><h4>Scripting</h4><p>PowerShell, Bash, Python. Automatisation admin & sécurité</p></div></div>
+            <div class="glass skill-card reveal"><div class="s-icon"><i class="fa-solid fa-cloud"></i></div><div><h4>Cloud & MDM</h4><p>Intune, Azure, Autopilot, conditional access, GLPI</p></div></div>
+        </div>
+    </section>
+
+    <section id="xp">
+        <div class="section-header reveal"><div class="section-title">Parcours</div><div class="section-sub">Expériences professionnelles & projets</div></div>
+        <div class="timeline">
+            <div class="tl-item reveal">
+                <div class="date">Septembre 2024 — Présent</div>
+                <h3>Alternant Technicien Réseau</h3>
+                <div class="org">Culligan France</div>
+                <ul class="tasks">
+                    <li>Autopilotage des postes via Intune & Azure</li>
+                    <li>Automatisation de mise à jour vers Windows 11 via Intune</li>
+                    <li>Gestion tickets N1/N2 (problèmes techniques, remédiation)</li>
+                    <li>Mise en place d'un serveur GLPI</li>
+                    <li>Migration de données d'une agence</li>
+                    <li>Remédiation des failles les plus élevées</li>
+                </ul>
             </div>
-
-            <div class="p-8 border-t border-white/5">
-                <div class="flex gap-4 text-textsec justify-center lg:justify-start">
-                    <a href="#" class="hover:text-white"><i class="fa-brands fa-github text-xl"></i></a>
-                    <a href="https://www.linkedin.com/in/maxence-bietiger-7b0ba0283/" target="_blank"
-                        class="hover:text-white"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                    <a href="mailto:[EMAIL_ADDRESS]" class="hover:text-white"><i
-                            class="fa-solid fa-envelope text-xl"></i></a>
-                </div>
+            <div class="tl-item reveal">
+                <div class="date">Août 2025</div>
+                <h3>BTL1</h3>
+                <div class="org">Security Blue Team</div>
+                <ul class="tasks"><li>Certification axée sur la défense des systèmes et la réponse aux incidents</li></ul>
             </div>
-        </aside>
-
-        <main class="flex-1 lg:ml-72 p-6 lg:p-12 relative overflow-hidden">
-
-            <div class="absolute top-6 right-6 font-mono text-xs text-textsec hidden lg:block">
-                SYSTEM STATUS: <span class="text-accent">ONLINE</span><br>
-                LOC: PARIS // EFREI
+            <div class="tl-item reveal">
+                <div class="date">2025 — Actuel</div>
+                <h3>Projets Personnels</h3>
+                <div class="org">Homelab</div>
+                <ul class="tasks">
+                    <li>Infrastructures virtuelles complètes (AD, DNS, DHCP, FW, Wireguard) sous Proxmox</li>
+                    <li>Pentesting basique sur machines vulnérables</li>
+                </ul>
             </div>
+        </div>
+    </section>
 
-            <section id="home" class="mb-20 pt-10">
-                <p class="font-mono text-accent mb-2"> > init_sequence_start...</p>
-                <h2 class="text-5xl lg:text-7xl font-bold font-mono text-white mb-6 uppercase leading-tight">
-                    Architecture <br> & Sécurité
-                </h2>
-                <p class="max-w-2xl text-textsec text-lg leading-relaxed border-l-2 border-accent pl-6">
-                    Étudiant en deuxième année de <strong class="text-white">BTS SIO SISR</strong> à <a
-                        class="text-white transition-all duration-300 hover:text-accent hover:underline decoration-accent underline-offset-4"
-                        target="_blank" href="https://www.efrei.fr/">l'EFREI Paris</a>. Actuellement en alternance chez
-                    <a class="text-white transition-all duration-300 hover:text-accent hover:underline decoration-accent underline-offset-4"
-                        target="_blank" href="https://www.culligan.fr/">Culligan France</a>.
-                </p>
+    <section id="veille">
+        <div class="section-header reveal"><div class="section-title">Veille Technologique</div><div class="section-sub">Sujet de veille 2025-2026</div></div>
+        <div class="glass veille-article reveal">
+            <div class="topic-badge"><i class="fa-solid fa-flag-checkered"></i> IA & Sport Automobile</div>
+            <h3>L'Intelligence Artificielle dans le sport automobile : de la simulation à la décision en temps réel</h3>
+            <p>La Formule 1 est devenue un laboratoire à ciel ouvert pour l'IA. Une voiture génère environ <strong>400 Go de données par course</strong> (jusqu'à 1 To sur un week-end complet), un volume qu'aucun ingénieur ne peut analyser manuellement. L'IA n'est plus un avantage compétitif : c'est une nécessité.</p>
+            <div class="veille-stats">
+                <div class="veille-stat"><div class="v-num">~400 Go</div><div class="v-label">Data / voiture / course</div></div>
+                <div class="veille-stat"><div class="v-num">50/50</div><div class="v-label">Split thermique / électrique (2026)</div></div>
+                <div class="veille-stat"><div class="v-num">350 kW</div><div class="v-label">Puissance MGU-K (x3 vs 2025)</div></div>
+                <div class="veille-stat"><div class="v-num">9 MJ</div><div class="v-label">Capacité de recharge / tour</div></div>
+            </div>
+            <h4><i class="fa-solid fa-battery-three-quarters" style="margin-right:.4rem"></i> Gestion autonome de l'énergie (Ferrari / Règlement 2026)</h4>
+            <p>Avec les nouvelles réglementations 2026, la puissance électrique a triplé (de 120 à 350 kW) et le split est désormais 50/50 entre moteur thermique et électrique. La recharge de la batterie est <strong>largement automatisée par l'ECU</strong> (Electronic Control Unit) : l'IA en usine génère des millions de "control maps" pré-chargées dans la voiture qui gèrent le déploiement et la récupération d'énergie en temps réel. <strong>L'ECU peut même surpasser les inputs du pilote</strong> si le système priorise la recharge. Ferrari, avec son choix de petit turbo et son logiciel d'optimisation énergétique, est identifié comme le benchmark en performance de lancement et gestion du SOC (State of Charge).</p>
+            <h4><i class="fa-solid fa-chess" style="margin-right:.4rem"></i> Stratégie de course & pit stops</h4>
+            <p>Des modèles de deep learning (Bi-LSTM, GRU, TCN-GRU) entraînés sur la télémétrie 2020-2024 prédisent le timing optimal des arrêts aux stands. McLaren utilise l'IA générative pour simuler des centaines de scénarios de course — timing des pneus, undercut, météo — avec une précision décrite comme <strong>"presque inquiétante"</strong> par leur Chief AI Officer. Pendant la course, les modèles mettent à jour leurs prédictions en continu à partir de l'usure des pneus, la consommation de carburant et les températures des freins.</p>
+            <h4><i class="fa-solid fa-wind" style="margin-right:.4rem"></i> Conception aérodynamique</h4>
+            <p>Racing Bulls utilise <strong>Neural Concept</strong> (IA suisse) pour réduire les simulations CFD de plusieurs heures à quelques secondes, évaluant des milliers de designs aéro dans des conditions de piste réalistes. AWS a également développé un workflow de Design of Experiments (DoE) basé sur le ML qui a <strong>triplé le débit de simulations CFD</strong> et réduit le temps de retour de moitié. Sous le plafond budgétaire (~170M€ en 2026), optimiser chaque euro de R&D via l'IA devient critique.</p>
+            <h4><i class="fa-solid fa-cloud-sun-rain" style="margin-right:.4rem"></i> Prévisions météo IA (FIA + Tomorrow.io)</h4>
+            <p>La FIA s'est associée à <strong>Tomorrow.io</strong> pour des prévisions météo pilotées par IA et satellites. L'ancien système laissait 70% du globe sans couverture ou avec des données vieilles de 1 à 3 jours. La nouvelle plateforme offre des prévisions ultra-localisées (effets de tunnel, microclimats de circuit) et alimente directement le contrôle de course pour les décisions de safety car et de drapeaux rouges.</p>
+            <h4><i class="fa-solid fa-gavel" style="margin-right:.4rem"></i> Red Bull : IA réglementaire (Oracle GenAI)</h4>
+            <p>Red Bull utilise un <strong>LLM + système RAG</strong> (Retrieval-Augmented Generation) d'Oracle pour analyser le règlement sportif en temps réel. Le système traite les infractions passées et génère des réponses rapides lors de protests. Leurs simulations de course sont <strong>25% plus rapides</strong> depuis le passage à Oracle Cloud Infrastructure.</p>
+            <div class="veille-sources">
+                <a href="https://www.the-race.com/formula-1/f1-weather-revolution-forecasting-ai/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.6rem"></i> The Race — Météo IA</a>
+                <a href="https://www.imd.org/ibyimd/artificial-intelligence/f1s-human-ai-edge-lessons-for-every-industry/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.6rem"></i> IMD — Human-AI Edge</a>
+                <a href="https://www.axios.com/2025/10/19/formula-one-ai-strategy-us-grand-prix" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.6rem"></i> Axios — F1 AI Strategy</a>
+                <a href="https://scuderiafans.com/electric-energy-in-f1-2026-former-ferrari-engineer-explains-battery-strategy-and-power-deployment/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.6rem"></i> ScuderiaFans — Énergie F1</a>
+                <a href="https://www.raceteq.com/articles/2025/03/how-red-bull-is-using-artificial-intelligence-in-formula-1" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.6rem"></i> Raceteq — Red Bull IA</a>
+            </div>
+        </div>
+    </section>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-                    <div class="bg-panel p-4 border border-white/5 rounded">
-                        <div class="text-2xl font-bold text-white">2</div>
-                        <div class="text-xs text-textsec uppercase font-mono">Ans d'expérience</div>
-                    </div>
-                    <div class="bg-panel p-4 border border-white/5 rounded">
-                        <div class="text-2xl font-bold text-white">3+</div>
-                        <div class="text-xs text-textsec uppercase font-mono">Certifs visées</div>
-                    </div>
-                </div>
-            </section>
+    <section id="certs">
+        <div class="section-header reveal"><div class="section-title">Certifications</div><div class="section-sub">Parcours de certifications en cybersécurité</div></div>
+        <div class="certs-grid">
+            <div class="glass cert-item reveal">
+                <div class="cert-left"><div class="cert-icon done"><i class="fa-solid fa-shield-halved"></i></div><div class="cert-info"><h4>BTL1</h4><div class="desc">SOC Tier 1, SOC Analyst, Forensics Analyst</div></div></div>
+                <div class="cert-right"><span class="cert-pill done">Acquise</span><a href="https://www.credly.com/badges/b217ef93-8e54-494d-80db-f3a7a0368059/linked_in_profile" target="_blank" class="cert-link" title="Voir sur Credly"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
+            </div>
+            <div class="glass cert-item reveal">
+                <div class="cert-left"><div class="cert-icon wip"><i class="fa-solid fa-book-open"></i></div><div class="cert-info"><h4>CDSA</h4><div class="desc">Defensive Security</div></div></div>
+                <div class="cert-right"><span class="cert-pill wip">En cours</span></div>
+            </div>
+            <div class="glass cert-item reveal">
+                <div class="cert-left"><div class="cert-icon locked"><i class="fa-solid fa-lock"></i></div><div class="cert-info"><h4>CCD</h4><div class="desc">SOC Tier 2, Threat Hunting, Malware Analysis, SIEM</div></div></div>
+                <div class="cert-right"><span class="cert-pill locked">—</span></div>
+            </div>
+            <div class="glass cert-item reveal">
+                <div class="cert-left"><div class="cert-icon locked"><i class="fa-solid fa-lock"></i></div><div class="cert-info"><h4>BTL2</h4><div class="desc">Advanced Level</div></div></div>
+                <div class="cert-right"><span class="cert-pill locked">—</span></div>
+            </div>
+        </div>
+    </section>
 
-            <section id="skills" class="mb-20">
-                <h3 class="font-mono text-2xl text-white mb-8 flex items-center gap-2">
-                    <span class="text-accent">#</span> SKILL_SET
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="tech-card p-6 rounded-lg">
-                        <h4 class="text-accent font-mono mb-4 border-b border-white/10 pb-2">SYS_ADMIN_SUP</h4>
-                        <div class="space-y-3">
-                            <div class="flex items-center gap-2 text-sm"><i
-                                    class="fa-brands fa-windows text-accent"></i><span>Windows Server / AD</span></div>
-                            <div class="flex items-center gap-2 text-sm"><i
-                                    class="fa-brands fa-linux text-accent"></i><span>Linux (Debian / Ubuntu)</span>
-                            </div>
-                            <div class="flex items-center gap-2 text-sm"><i
-                                    class="fa-solid fa-terminal text-accent"></i><span>Powershell / Bash</span></div>
-                            <div class="flex items-center gap-2 text-sm"><i
-                                    class="fa-solid fa-ticket text-accent"></i><span>GLPI</span></div>
+    <footer>
+        <div class="copy">© 2026 Maxence Bietiger</div>
+        <div class="socials">
+            <a href="https://github.com/BietigerMaxence" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/maxence-bietiger-7b0ba0283/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="mailto:bietigerm2@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </footer>
+</div>
 
-                        </div>
-                    </div>
-                    <div class="tech-card p-6 rounded-lg">
-                        <h4 class="text-accent font-mono mb-4 border-b border-white/10 pb-2">NET_SEC</h4>
-                        <div class="space-y-3">
-                            <div class="flex items-center gap-2 text-sm"><i
-                                    class="fa-solid fa-shield-halved text-accent"></i><span>Firewalling (pfSense /
-                                    OPNSense)</span>
-                            </div>
-                            <div class="flex items-center gap-2 text-sm"><i
-                                    class="fa-solid fa-chart-line text-accent"></i><span>SIEM (Wazuh / Splunk /
-                                    ELK)</span></div>
-                            <div class="flex items-center gap-2 text-sm"><i
-                                    class="fa-solid fa-network-wired text-accent"></i><span>TCP/IP & OSI</span></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="experience" class="mb-20">
-                <h3 class="font-mono text-2xl text-white mb-8 flex items-center gap-2">
-                    <span class="text-accent">#</span> CHANGELOG (XP)
-                </h3>
-                <div class="relative border-l border-white/10 ml-3 space-y-12">
-
-                    <div class="relative pl-8">
-                        <div class="absolute -left-1.5 top-1 w-3 h-3 bg-accent rounded-full shadow-[0_0_10px_#00ff9d]">
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
-                            <h4 class="text-xl font-bold text-white">Alternant Technicien Réseau</h4>
-                            <span class="font-mono text-xs text-accent bg-accentdim px-2 py-1 rounded">Current</span>
-                        </div>
-                        <div class="text-textsec text-sm font-mono mb-4">@ Culligan France | Septembre 2024 - Juin 2026
-                        </div>
-                        <ul class="list-none space-y-2 text-gray-400">
-                            <li><span class="text-accent">></span> Autopilotage des postes via Intune / Azure.</li>
-                            <li><span class="text-accent">></span> Projet d'automatisation de mise à jours des postes
-                                vers Win11 via Intune.</li>
-                            <li><span class="text-accent">></span> Gestion tickets N1/N2 (problèmes techniques,
-                                remédiation, ...).</li>
-                            <li><span class="text-accent">></span> Projet de mise en place d'un serveur GLPI.</li>
-                            <li><span class="text-accent">></span> Projet de mise en place de migration de données d'une
-                                agence.</li>
-                            <li><span class="text-accent">></span> Projet de remédiation des failles les plus élevées.
-                            </li>
-
-                        </ul>
-                    </div>
-
-                    <div class="relative pl-8">
-                        <div class="absolute -left-1.5 top-1 w-3 h-3 bg-gray-600 rounded-full"></div>
-                        <h4 class="text-xl font-bold text-white">BTL1</h4>
-                        <div class="text-textsec text-sm font-mono mb-4">@ Security Blue Team | 26 aout 2025</div>
-                        <p class="text-gray-400 text-sm">Certification axée sur la défense des systèmes et la
-                            réponse aux incidents.</p>
-                    </div>
-
-                    <div class="relative pl-8">
-                        <div class="absolute -left-1.5 top-1 w-3 h-3 bg-gray-600 rounded-full"></div>
-                        <h4 class="text-xl font-bold text-white">Projets Personnels</h4>
-                        <div class="text-textsec text-sm font-mono mb-4">@ Chez moi | 2025 - Actuel</div>
-                        <p class="text-gray-400 text-sm">Création d'infrastructures virtuelles complètes (AD, DNS, DHCP,
-                            FW, Wireguard) sous VMware et Proxmox. Pentesting basique sur machines.</p>
-                    </div>
-
-                </div>
-            </section>
-
-            <section id="veille" class="mb-20">
-                <div class="mb-8">
-                    <h3 class="font-mono text-2xl text-white flex items-center gap-2">
-                        <span class="text-accent">#</span> INTELLIGENCE_FEED
-                    </h3>
-                    <p class="text-sm text-textsec mt-2 font-mono">
-                        <span class="text-accent">></span> Sujets de veille active [2024-2025] :: <span
-                            class="animate-pulse">MONITORING_ON</span>
-                    </p>
-                </div>
-
-                <!-- Bento Grid Container -->
-                <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
-
-                    <!-- Card 1: Passwordless (Grande carte) -->
-                    <div
-                        class="md:col-span-4 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
-                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <i class="fa-solid fa-fingerprint text-9xl text-accent transform rotate-12"></i>
-                        </div>
-                        <div class="relative z-10 flex flex-col justify-between h-full">
-                            <div>
-                                <span
-                                    class="text-xs font-mono text-accent border border-accent/30 bg-accent/5 px-2 py-1 rounded mb-4 inline-block">IAM
-                                    & AUTH</span>
-                                <h4
-                                    class="text-2xl font-bold text-white mb-2 group-hover:text-accent transition-colors">
-                                    L'Ère du "Passwordless"</h4>
-                            </div>
-                            <p class="text-gray-400 text-sm leading-relaxed max-w-lg mt-4">
-                                La fin des mots de passe ? L'adoption massive de FIDO2 et des Passkeys (Windows Hello
-                                for Business) transforme l'expérience utilisateur et élimine 80% des vecteurs d'attaques
-                                liés aux identifiants.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: IaC (Petite carte verticale) -->
-                    <div
-                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300 flex flex-col justify-between">
-                        <div class="absolute -bottom-4 -right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <i class="fa-solid fa-code-branch text-8xl text-accent"></i>
-                        </div>
-                        <div>
-                            <span
-                                class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-4 inline-block">AUTOMATION</span>
-                            <h4 class="text-xl font-bold text-white mb-1">Infra as Code (IaC)</h4>
-                        </div>
-                        <p class="text-gray-400 text-xs mt-4 relative z-10">
-                            Vers des infras immuables. Terraform et Ansible deviennent les standards pour déployer et
-                            sécuriser des environnements complexes en quelques minutes.
-                        </p>
-                    </div>
-
-                    <!-- Card 3: XDR (Petite carte) -->
-                    <div
-                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
-                        <div class="absolute top-2 right-2 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <i class="fa-solid fa-shield-virus text-6xl text-accent"></i>
-                        </div>
-                        <span
-                            class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-3 inline-block">DEFENSE</span>
-                        <h4 class="text-lg font-bold text-white mb-2">L'Essor des XDR</h4>
-                        <p class="text-gray-400 text-xs">
-                            Au-delà de l'EDR. Corrélation automatique des menaces sur les endpoints, le réseau et le
-                            cloud pour une réponse unifiée.
-                        </p>
-                    </div>
-
-                    <!-- Card 4: AD Security (Moyenne carte) -->
-                    <div
-                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
-                        <div class="absolute -right-2 top-10 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <i class="fa-brands fa-windows text-7xl text-accent"></i>
-                        </div>
-                        <span
-                            class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-3 inline-block">AD
-                            SEC</span>
-                        <h4 class="text-lg font-bold text-white mb-2">Hardening Active Directory</h4>
-                        <p class="text-gray-400 text-xs">
-                            L'AD reste la cible #1. Focus sur le "Tiering Model", la protection des comptes à privilèges
-                            et la détection des chemins d'attaque (BloodHound).
-                        </p>
-                    </div>
-
-                    <!-- Card 5: Souveraineté (Moyenne carte) -->
-                    <div
-                        class="md:col-span-2 bg-panel border border-white/5 rounded-xl p-6 relative overflow-hidden group hover:border-accent/50 transition-colors duration-300">
-                        <div class="absolute bottom-0 right-0 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <i class="fa-solid fa-server text-7xl text-accent"></i>
-                        </div>
-                        <span
-                            class="text-xs font-mono text-white/50 border border-white/10 px-2 py-1 rounded mb-3 inline-block">GOUVERNANCE</span>
-                        <h4 class="text-lg font-bold text-white mb-2">Souveraineté & Cloud</h4>
-                        <p class="text-gray-400 text-xs">
-                            La montée du Cloud de Confiance (SecNumCloud) face au Cloud Act américain. Enjeux
-                            géopolitiques majeurs pour les données sensibles.
-                        </p>
-                    </div>
-
-                </div>
-            </section>
-
-            <section id="certifs" class="pb-20">
-                <h3 class="font-mono text-2xl text-white mb-8 flex items-center gap-2">
-                    <span class="text-accent">#</span> CERTIFICATIONS
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                    <div class="tech-card p-6 rounded text-center border-t-4 border-t-accent">
-                        <a href="https://www.securityblue.team/certifications/blue-team-level-1"
-                            class="text-white transition-all duration-300 hover:text-accent hover:underline decoration-accent underline-offset-4"
-                            target="_blank">
-                            <div class="font-bold text-xl text-white mb-2">BTL1</div>
-                        </a>
-                        <div class="text-xs font-mono text-textsec mb-4">SOC Tier 1, SOC Analyst, Forensics Analyst</div>
-                        <a class="transition-all duration-300 hover:underline decoration-accent underline-offset-4"
-                            target="_blank"
-                            href="https://www.credly.com/badges/b217ef93-8e54-494d-80db-f3a7a0368059/linked_in_profile"><span
-                                class="px-2 py-1 bg-green-900/30 text-green-400 transition-colors duration-300 hover:text-accent text-xs rounded border border-green-900">ACQUISE</span></a>
-                    </div>
-
-                    <div class="tech-card p-6 rounded text-center border-t-4 border-t-yellow-500 opacity-80">
-                        <div class="font-bold text-xl text-white mb-2">CDSA</div>
-                        <div class="text-xs font-mono text-textsec mb-4">DEFENSIVE SECURITY</div>
-                        <span
-                            class="px-2 py-1 bg-yellow-900/30 text-yellow-400 text-xs rounded border border-yellow-900 animate-pulse">EN
-                            COURS...</span>
-                    </div>
-
-                    <div class="tech-card p-6 rounded text-center border-t-4 border-t-blue-700 opacity-50">
-                        <a href="https://cyberdefenders.org/blue-team-training/courses/certified-cyberdefender-certification/"
-                            class="text-white transition-all duration-300 hover:text-accent hover:underline decoration-accent underline-offset-4"
-                            target="_blank">
-                            <div class="font-bold text-xl text-white mb-2">CCD</div>
-                        </a>
-                        <div class="text-xs font-mono text-textsec mb-4">SOC Tier 2, Threat Hunting, Malware Analysis, SIEM</div>
-                        <span
-                            class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded border border-gray-700">LOCKED</span>
-                    </div>
-
-                    <div class="tech-card p-6 rounded text-center border-t-4 border-t-blue-700 opacity-50">
-                        <div class="font-bold text-xl text-white mb-2">BTL2</div>
-                        <div class="text-xs font-mono text-textsec mb-4">ADVANCED LEVEL</div>
-                        <span
-                            class="px-2 py-1 bg-gray-800 text-gray-400 text-xs rounded border border-gray-700">LOCKED</span>
-                    </div>
-
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <script>
-        // --- SCROLL SPY & NAVIGATION ACTIVE STATE ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            // Classes for Active vs Inactive state
-            // Active: bg-accentdim text-accent border-r-2 border-accent font-semibold
-            // Inactive: hover:bg-white/5 hover:text-accent (and icon colors)
-
-            const makeActive = (link) => {
-                link.classList.remove('hover:bg-white/5', 'hover:text-accent');
-                link.classList.add('bg-accentdim', 'text-accent', 'border-r-2', 'border-accent', 'font-semibold');
-
-                const icon = link.querySelector('i');
-                if (icon) {
-                    icon.classList.remove('text-textsec', 'group-hover:text-accent');
-                }
-            };
-
-            const makeInactive = (link) => {
-                link.classList.add('hover:bg-white/5', 'hover:text-accent');
-                link.classList.remove('bg-accentdim', 'text-accent', 'border-r-2', 'border-accent', 'font-semibold');
-
-                const icon = link.querySelector('i');
-                if (icon) {
-                    icon.classList.add('text-textsec', 'group-hover:text-accent');
-                }
-            };
-
-            // Options for Observer
-            const observerOptions = {
-                threshold: 0.3, // Trigger when 30% of section is visible
-                rootMargin: "-10% 0px -50% 0px" // Adjust viewport trigger zone
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Remove active from all
-                        navLinks.forEach(link => makeInactive(link));
-
-                        // Add active to current
-                        const id = entry.target.getAttribute('id');
-                        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
-                        if (activeLink) {
-                            makeActive(activeLink);
-                        }
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => observer.observe(section));
-
-            // Force "Dashboard" active when at very top (fix for smooth scrolling gaps)
-            window.addEventListener('scroll', () => {
-                if (window.scrollY < 50) {
-                    navLinks.forEach(link => makeInactive(link));
-                    const homeLink = document.querySelector('.nav-link[href="#home"]');
-                    if (homeLink) makeActive(homeLink);
-                }
-            });
-
-            // Initialize first state
-            if (window.scrollY < 50) {
-                const homeLink = document.querySelector('.nav-link[href="#home"]');
-                if (homeLink) makeActive(homeLink);
-            }
-        });
-    </script>
+<script>
+    const navLinks=document.querySelectorAll('nav a[data-section]');
+    const sections=document.querySelectorAll('section[id]');
+    function updateNav(){const sy=window.scrollY+120;let cur='';sections.forEach(s=>{if(s.offsetTop<=sy)cur=s.getAttribute('id')});navLinks.forEach(l=>l.classList.toggle('active',l.dataset.section===cur))}
+    window.addEventListener('scroll',updateNav,{passive:true});updateNav();
+    const reveals=document.querySelectorAll('.reveal');
+    const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}})},{threshold:.12});
+    reveals.forEach((el,i)=>{el.style.transitionDelay=`${(i%6)*.08}s`;ro.observe(el)});
+</script>
 </body>
-
 </html>
