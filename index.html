@@ -10,11 +10,48 @@
         :root{--bg:#0a0d13;--fg:#e4e8f0;--muted:#6b7280;--accent:#38bdf8;--accent2:#818cf8;--glass:rgba(255,255,255,0.035);--glass-border:rgba(255,255,255,0.07);--glass-hover:rgba(255,255,255,0.06)}*{margin:0;padding:0;box-sizing:border-box}html,body{overflow-x:hidden}body{background:var(--bg);color:var(--fg);font-family:'Outfit',sans-serif;font-weight:400;line-height:1.6;font-size:16px}.glow-tl,.glow-br{position:fixed;pointer-events:none;z-index:0;border-radius:50%}.glow-tl{top:-15%;left:-8%;width:55vw;height:55vw;background:radial-gradient(circle,rgba(56,189,248,0.07) 0%,transparent 55%)}.glow-br{bottom:-18%;right:-8%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(129,140,248,0.05) 0%,transparent 55%)}::selection{background:var(--accent);color:var(--bg)}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#1e2330;border-radius:3px}::-webkit-scrollbar-thumb:hover{background:var(--accent)}.container{max-width:1060px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
 
         /* NAV */
-        nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(10,13,19,0.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:100px;padding:0.5rem 0.7rem 0.5rem 1.2rem;display:flex;align-items:center;gap:0.2rem}
-        nav .logo{font-weight:800;font-size:0.9rem;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-right:0.7rem}
-        nav a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;padding:0.4rem 0.75rem;border-radius:100px;transition:all 0.25s}
-        nav a:hover{color:var(--fg);background:rgba(255,255,255,0.05)}
-        nav a.active{color:var(--accent);background:rgba(56,189,248,0.1)}
+        nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:100;background:rgba(10,13,19,0.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:100px;padding:0.5rem 0.7rem 0.5rem 1.2rem;display:flex;align-items:center;gap:0.2rem;isolation:isolate}
+        nav .logo{font-weight:800;font-size:0.9rem;letter-spacing:-0.02em;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-right:0.7rem;position:relative;z-index:2}
+        nav a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;padding:0.4rem 0.75rem;border-radius:100px;transition:color .35s ease;position:relative;z-index:2}
+        nav a:hover{color:var(--fg)}
+        nav a.active{color:var(--accent)}
+
+        /* LIQUID GLASS NAV INDICATOR */
+        .nav-indicator{position:absolute;z-index:1;border-radius:100px;pointer-events:none;opacity:0;
+            background:linear-gradient(135deg,rgba(56,189,248,.18) 0%,rgba(129,140,248,.14) 100%);
+            border:1px solid rgba(255,255,255,.18);
+            backdrop-filter:blur(6px) saturate(180%);
+            -webkit-backdrop-filter:blur(6px) saturate(180%);
+            box-shadow:
+                inset 0 1px 1px rgba(255,255,255,.4),
+                inset 0 -1px 1px rgba(0,0,0,.25),
+                inset 1px 0 1px rgba(255,255,255,.15),
+                inset -1px 0 1px rgba(0,0,0,.15),
+                0 4px 14px -2px rgba(56,189,248,.4),
+                0 2px 6px rgba(0,0,0,.2);
+            transition:
+                left .55s cubic-bezier(.34,1.56,.64,1),
+                top .55s cubic-bezier(.34,1.56,.64,1),
+                width .55s cubic-bezier(.34,1.56,.64,1),
+                height .55s cubic-bezier(.34,1.56,.64,1),
+                opacity .25s ease}
+        .nav-indicator.visible{opacity:1}
+        /* Top-left specular sheen (fixed) */
+        .nav-indicator::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+            background:linear-gradient(135deg,
+                rgba(255,255,255,.35) 0%,
+                rgba(255,255,255,.08) 22%,
+                transparent 45%,
+                transparent 65%,
+                rgba(255,255,255,.18) 100%)}
+        /* Cursor-following reflection (overlay blend) */
+        .nav-indicator::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+            background:radial-gradient(circle at var(--mx,50%) var(--my,50%),
+                rgba(255,255,255,.35) 0%,
+                rgba(255,255,255,.08) 25%,
+                transparent 55%);
+            mix-blend-mode:overlay;
+            transition:opacity .3s ease}
 
         /* GLASS */
         .glass{background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:14px;transition:all 0.3s}
@@ -102,6 +139,64 @@
         .cert-link{color:var(--muted);font-size:.8rem;transition:color .3s}
         .cert-link:hover{color:var(--accent)}
 
+        /* ENTREPRISE */
+        .entreprise-card{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+        .entreprise-text h3{font-weight:700;font-size:1.5rem;margin-bottom:0.3rem;letter-spacing:-0.02em}
+        .entreprise-text h3 a{color:var(--fg);text-decoration:none;border-bottom:1px solid var(--glass-border);transition:all 0.3s}
+        .entreprise-text h3 a:hover{color:var(--accent);border-color:var(--accent)}
+        .entreprise-text .tagline{color:var(--accent);font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+        .entreprise-text p{color:var(--muted);font-size:0.85rem;line-height:1.7}
+        .entreprise-kpis{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+        .kpi-card{padding:1.2rem;text-align:center}
+        .kpi-card .kpi-num{font-weight:800;font-size:1.6rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+        .kpi-card .kpi-label{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.3rem}
+        .entreprise-role{margin-top:1.5rem;padding:1rem 1.2rem;display:flex;align-items:center;gap:0.8rem}
+        .entreprise-role .role-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,rgba(56,189,248,0.1),rgba(129,140,248,0.1));display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:0.85rem;flex-shrink:0}
+        .entreprise-role .role-text{font-size:0.8rem;color:var(--muted);line-height:1.5}
+        .entreprise-role .role-text strong{color:var(--fg);font-weight:600}
+        @media(max-width:768px){.entreprise-card{grid-template-columns:1fr}}
+
+        /* BLOCS BTS */
+        .blocs-layout{display:grid;grid-template-columns:220px 1fr;gap:3rem;align-items:start}
+        .blocs-sidebar{position:sticky;top:5rem}
+        .blocs-sidebar .sb-kicker{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:.6rem;display:block}
+        .blocs-sidebar h4{font-weight:700;font-size:1rem;margin-bottom:.4rem}
+        .blocs-sidebar .sb-intro{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:1.4rem}
+        .sidebar-map{list-style:none;display:flex;flex-direction:column;gap:.2rem;margin-bottom:1.4rem}
+        .sidebar-map a{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;border-radius:8px;text-decoration:none;color:var(--muted);font-size:.78rem;transition:all .2s;border:1px solid transparent}
+        .sidebar-map a:hover{background:var(--glass);color:var(--fg)}
+        .sidebar-map a.is-active{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.15);color:var(--accent)}
+        .sidebar-map .sb-num{font-weight:800;font-size:.65rem;width:20px;height:20px;border-radius:5px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .sidebar-map a.is-active .sb-num{background:rgba(56,189,248,.12);color:var(--accent)}
+        .sb-status{background:var(--glass);border:1px solid var(--glass-border);border-radius:10px;padding:.8rem 1rem;font-size:.72rem}
+        .sb-status span{color:var(--muted);display:block;margin-bottom:.2rem}
+        .sb-status strong{color:var(--fg);font-size:.75rem}
+        .blocs-content{display:flex;flex-direction:column;gap:2.5rem}
+        .bloc-section{scroll-margin-top:5rem;display:none;animation:blocFade .35s ease}
+        .bloc-section.is-active{display:block}
+        @keyframes blocFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .block-layout{display:grid;grid-template-columns:140px 1fr;gap:2rem;margin-bottom:1.2rem}
+        .block-meta{padding-top:.2rem}
+        .block-kicker{display:inline-block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.12);border-radius:100px;padding:.25rem .65rem;margin-bottom:.7rem}
+        .block-axis{font-size:.75rem;color:var(--muted);font-style:italic;line-height:1.5;margin-bottom:.6rem}
+        .block-track{font-size:.68rem;font-weight:600;color:var(--accent2);background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.12);border-radius:100px;padding:.2rem .55rem;display:inline-block}
+        .block-content h2{font-weight:700;font-size:1.3rem;letter-spacing:-0.02em;margin-bottom:.6rem}
+        .block-intro{font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem;max-width:640px}
+        .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+        .detail-card{padding:1.2rem 1.4rem}
+        .detail-card h3{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.8rem}
+        .detail-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+        .detail-list li{font-size:.8rem;color:var(--muted);padding-left:.9rem;position:relative;line-height:1.55}
+        .detail-list li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:700}
+        .block-links{display:flex;flex-wrap:wrap;gap:.5rem}
+        .inline-pill{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:600;color:var(--muted);border:1px solid var(--glass-border);background:var(--glass);border-radius:100px;padding:.3rem .8rem;text-decoration:none;transition:all .25s}
+        .inline-pill:hover{border-color:var(--accent);color:var(--accent);background:rgba(56,189,248,.06)}
+        .rtag{font-size:.58rem;font-weight:700;padding:.12rem .42rem;border-radius:100px;white-space:nowrap;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em;display:inline-block;margin-right:.3rem}
+        .rtag.formation{background:rgba(129,140,248,.12);color:var(--accent2)}
+        .rtag.pro1{background:rgba(56,189,248,.1);color:var(--accent)}
+        .rtag.pro2{background:rgba(52,211,153,.1);color:#34d399}
+        @media(max-width:900px){.blocs-layout{grid-template-columns:1fr}.blocs-sidebar{position:static;display:none}.detail-grid{grid-template-columns:1fr}.block-layout{grid-template-columns:1fr;gap:1rem}}
+
         /* FOOTER */
         footer{border-top:1px solid var(--glass-border);padding:2.5rem 0;display:flex;justify-content:space-between;align-items:center}
         footer .copy{font-size:.8rem;color:var(--muted)}
@@ -123,9 +218,12 @@
 <div class="glow-br"></div>
 
 <nav id="mainNav">
+    <div class="nav-indicator" id="navIndicator"></div>
     <div class="logo">MB</div>
+    <a href="#entreprise" data-section="entreprise">Entreprise</a>
     <a href="#skills" data-section="skills">Compétences</a>
     <a href="#xp" data-section="xp">Parcours</a>
+    <a href="#blocs" data-section="blocs">Blocs BTS</a>
     <a href="#veille" data-section="veille">Veille</a>
     <a href="#certs" data-section="certs">Certifications</a>
 </nav>
@@ -141,8 +239,30 @@
             <div class="hero-stat"><div class="num">3+</div><div class="label">Certifs visées</div></div>
         </div>
         <div class="hero-actions">
-            <a href="./Files/Tableau_de_synthèse_Epreuve_E5_BTS_SIO_2026_Maxence_Bietiger.pdf" download class="btn btn-primary"><i class="fa-solid fa-download"></i> Tableau de synthèse</a>
-            <a href="https://github.com/BietigerMaxence/Epreuve_E6" target="_blank" class="btn btn-outline"><i class="fa-brands fa-github"></i> Documents E5 - E6</a>
+            <a href="./Tableau_de_synthese.pdf" download class="btn btn-primary"><i class="fa-solid fa-download"></i> Tableau de synthèse</a>
+            <a href="https://github.com/BietigerMaxence/Epreuve_E6" target="_blank" class="btn btn-outline"><i class="fa-brands fa-github"></i> Documents E6</a>
+        </div>
+    </section>
+
+    <section id="entreprise">
+        <div class="section-header reveal"><div class="section-title">Entreprise d'accueil</div><div class="section-sub">Mon environnement professionnel en alternance</div></div>
+        <div class="entreprise-card">
+            <div class="entreprise-text reveal">
+                <div class="tagline">Leader mondial du traitement de l'eau</div>
+                <h3><a href="https://www.culligan.fr/" target="_blank">Culligan France</a></h3>
+                <p>Fondé en 1936 aux États-Unis par Emmett Culligan, le groupe est aujourd'hui présent dans plus de 90 pays avec plus de 14 000 collaborateurs. En France, Culligan compte plus de 1 500 salariés répartis sur un réseau de 70 agences, avec un siège à Versailles et un centre logistique à Trappes.</p>
+                <p style="margin-top:0.8rem">L'entreprise conçoit et commercialise des solutions de traitement de l'eau pour les particuliers, les professionnels et les collectivités : adoucisseurs, purificateurs, osmoseurs et fontaines à eau. Certifiée ISO 9001 et ISO 14001, Culligan s'engage dans une démarche de réduction de l'empreinte plastique et carbone.</p>
+                <div class="glass entreprise-role reveal">
+                    <div class="role-icon"><i class="fa-solid fa-user-gear"></i></div>
+                    <div class="role-text"><strong>Mon rôle :</strong> Alternant Technicien Réseau au sein de la DSI — administration Intune, Azure, Active Directory, GLPI et gestion de parc informatique national.</div>
+                </div>
+            </div>
+            <div class="entreprise-kpis reveal">
+                <div class="glass kpi-card"><div class="kpi-num">90+</div><div class="kpi-label">Pays</div></div>
+                <div class="glass kpi-card"><div class="kpi-num">1500+</div><div class="kpi-label">Salariés FR</div></div>
+                <div class="glass kpi-card"><div class="kpi-num">70</div><div class="kpi-label">Agences</div></div>
+                <div class="glass kpi-card"><div class="kpi-num">1936</div><div class="kpi-label">Fondation</div></div>
+            </div>
         </div>
     </section>
 
@@ -185,9 +305,286 @@
                 <h3>Projets Personnels</h3>
                 <div class="org">Homelab</div>
                 <ul class="tasks">
-                    <li>Infrastructures virtuelles complètes (AD, DNS, DHCP, FW, Wireguard) sous Proxmox</li>
+                    <li>Infrastructures virtuelles complètes (AD, DNS, DHCP, FW, Wireguard) sous VMware et Proxmox</li>
                     <li>Pentesting basique sur machines vulnérables</li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="blocs">
+        <div class="section-header reveal">
+            <div class="section-title">Blocs de compétences BTS SIO</div>
+            <div class="section-sub">6 blocs du référentiel SISR — compétences mobilisées et réalisations associées</div>
+        </div>
+        <div class="blocs-layout">
+            <aside class="blocs-sidebar reveal">
+                <span class="sb-kicker">Navigation</span>
+                <h4>Carte des blocs</h4>
+                <p class="sb-intro">Chaque bloc relie les réalisations, les compétences mobilisées et les preuves visibles dans le portfolio.</p>
+                <ul class="sidebar-map">
+                    <li><a href="#bloc-1" class="is-active"><span class="sb-num">01</span>Patrimoine informatique</a></li>
+                    <li><a href="#bloc-2"><span class="sb-num">02</span>Incidents et évolution</a></li>
+                    <li><a href="#bloc-3"><span class="sb-num">03</span>Présence en ligne</a></li>
+                    <li><a href="#bloc-4"><span class="sb-num">04</span>Mode projet</a></li>
+                    <li><a href="#bloc-5"><span class="sb-num">05</span>Mise à disposition</a></li>
+                    <li><a href="#bloc-6"><span class="sb-num">06</span>Développement pro</a></li>
+                </ul>
+                <div class="sb-status">
+                    <span>Support principal</span>
+                    <strong>Tableau de synthèse + portfolio</strong>
+                </div>
+            </aside>
+            <div class="blocs-content">
+
+                <div class="bloc-section is-active reveal" id="bloc-1">
+                    <div class="glass" style="padding:1.8rem">
+                        <div class="block-layout">
+                            <div class="block-meta">
+                                <span class="block-kicker">Bloc 1</span>
+                                <p class="block-axis">Inventaire / infrastructure / environnement</p>
+                                <span class="block-track">Formation + entreprise</span>
+                            </div>
+                            <div class="block-content">
+                                <h2>Gérer le patrimoine informatique</h2>
+                                <p class="block-intro">Ce bloc regroupe la mise en place, l'organisation et le maintien des environnements techniques utilisés pendant mon BTS, en formation comme en entreprise.</p>
+                                <div class="detail-grid">
+                                    <article class="glass detail-card">
+                                        <h3>Réalisations</h3>
+                                        <ul class="detail-list">
+                                            <li><span class="rtag formation">Formation</span>Administration d'une forêt Active Directory, DHCP, DNS avec redondance AD</li>
+                                            <li><span class="rtag formation">Formation</span>Mise en place d'un serveur GLPI avec liaison LDAP</li>
+                                            <li><span class="rtag formation">Formation</span>Mise en place d'un bastion avec accès VPN (BD, serveur WEB)</li>
+                                            <li><span class="rtag formation">Formation</span>Mise en place d'un serveur PFSense</li>
+                                            <li><span class="rtag formation">Formation</span>Mise en place d'un serveur RADIUS</li>
+                                            <li><span class="rtag pro1">Pro 1A</span>Gestion de parc d'ordinateurs (Excel / Azure / Intune)</li>
+                                            <li><span class="rtag pro1">Pro 1A</span>Suivi et remédiation des failles de sécurité</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>GLPI complet : LDAP, MAJ auto, garanties, sauvegarde BD, SSO, sync Intune</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>Migration fileshare — MAJ listes de distribution — PRA/PCA</li>
+                                        </ul>
+                                    </article>
+                                    <article class="glass detail-card">
+                                        <h3>Compétences mobilisées</h3>
+                                        <ul class="detail-list">
+                                            <li>Recenser et identifier les ressources numériques</li>
+                                            <li>Exploiter des référentiels, normes et standards</li>
+                                            <li>Mettre en place et vérifier les niveaux d'habilitation associés à un service</li>
+                                            <li>Vérifier les conditions de la continuité d'un service informatique</li>
+                                            <li>Gérer des sauvegardes</li>
+                                            <li>Vérifier le respect des règles d'utilisation des ressources numériques</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-links">
+                            <a class="inline-pill" href="./Tableau_de_synthese.pdf" download><i class="fa-solid fa-file-pdf" style="font-size:.6rem"></i> Tableau de synthèse</a>
+                            <a class="inline-pill" href="#xp"><i class="fa-solid fa-arrow-up" style="font-size:.6rem"></i> Parcours</a>
+                            <a class="inline-pill" href="#entreprise"><i class="fa-solid fa-building" style="font-size:.6rem"></i> Culligan France</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloc-section reveal" id="bloc-2">
+                    <div class="glass" style="padding:1.8rem">
+                        <div class="block-layout">
+                            <div class="block-meta">
+                                <span class="block-kicker">Bloc 2</span>
+                                <p class="block-axis">Support / qualification / amélioration continue</p>
+                                <span class="block-track">Helpdesk + cybersécurité</span>
+                            </div>
+                            <div class="block-content">
+                                <h2>Répondre aux incidents et aux demandes d'assistance et d'évolution</h2>
+                                <p class="block-intro">Mon expérience en support N1/N2 m'a amené à détecter, qualifier et traiter des anomalies techniques, puis à proposer des évolutions pour fiabiliser les systèmes.</p>
+                                <div class="detail-grid">
+                                    <article class="glass detail-card">
+                                        <h3>Réalisations</h3>
+                                        <ul class="detail-list">
+                                            <li><span class="rtag formation">Formation</span>Sécurisation d'une infrastructure avec Wazuh et Suricata</li>
+                                            <li><span class="rtag pro1">Pro 1A</span>Gestion de tickets via Service Now</li>
+                                            <li><span class="rtag pro1">Pro 1A</span>Traitement d'incidents : imprimantes, Office 365, Bitlocker, applications</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>Remédiation de failles de sécurité critiques</li>
+                                        </ul>
+                                    </article>
+                                    <article class="glass detail-card">
+                                        <h3>Compétences mobilisées</h3>
+                                        <ul class="detail-list">
+                                            <li>Collecter, suivre et orienter des demandes</li>
+                                            <li>Traiter des demandes concernant les services réseau, système et applicatifs</li>
+                                            <li>Traiter des demandes concernant les applications</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-links">
+                            <a class="inline-pill" href="#xp"><i class="fa-solid fa-arrow-up" style="font-size:.6rem"></i> Parcours professionnel</a>
+                            <a class="inline-pill" href="#entreprise"><i class="fa-solid fa-building" style="font-size:.6rem"></i> Culligan France</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloc-section reveal" id="bloc-3">
+                    <div class="glass" style="padding:1.8rem">
+                        <div class="block-layout">
+                            <div class="block-meta">
+                                <span class="block-kicker">Bloc 3</span>
+                                <p class="block-axis">Visibilité / contenu / présence numérique</p>
+                                <span class="block-track">Portfolio + site vitrine</span>
+                            </div>
+                            <div class="block-content">
+                                <h2>Développer la présence en ligne de l'organisation</h2>
+                                <p class="block-intro">J'ai structuré une présence en ligne professionnelle autour de mon portfolio, de mes projets et de la valorisation de mon parcours BTS.</p>
+                                <div class="detail-grid">
+                                    <article class="glass detail-card">
+                                        <h3>Réalisations</h3>
+                                        <ul class="detail-list">
+                                            <li><span class="rtag formation">Formation</span>Création de mon portfolio personnel (bietigermaxence.github.io)</li>
+                                            <li><span class="rtag formation">Formation</span>Mise en place d'un site vitrine d'une entreprise virtuelle</li>
+                                            <li><span class="rtag formation">Formation</span>Actualisation et optimisation de mon profil LinkedIn</li>
+                                        </ul>
+                                    </article>
+                                    <article class="glass detail-card">
+                                        <h3>Compétences mobilisées</h3>
+                                        <ul class="detail-list">
+                                            <li>Participer à la valorisation de l'image de l'organisation sur les médias numériques en tenant compte du cadre juridique et des enjeux économiques</li>
+                                            <li>Référencer les services en ligne de l'organisation et mesurer leur visibilité</li>
+                                            <li>Participer à l'évolution d'un site Web exploitant les données de l'organisation</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-links">
+                            <a class="inline-pill" href="https://bietigermaxence.github.io/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:.6rem"></i> Portfolio GitHub</a>
+                            <a class="inline-pill" href="https://www.linkedin.com/in/maxence-bietiger-7b0ba0283/" target="_blank"><i class="fa-brands fa-linkedin" style="font-size:.6rem"></i> LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloc-section reveal" id="bloc-4">
+                    <div class="glass" style="padding:1.8rem">
+                        <div class="block-layout">
+                            <div class="block-meta">
+                                <span class="block-kicker">Bloc 4</span>
+                                <p class="block-axis">Planification / coordination / pilotage</p>
+                                <span class="block-track">Projets entreprise</span>
+                            </div>
+                            <div class="block-content">
+                                <h2>Travailler en mode projet</h2>
+                                <p class="block-intro">Ce bloc illustre ma capacité à travailler avec des objectifs définis, des priorités techniques et des livrables concrets en environnement professionnel.</p>
+                                <div class="detail-grid">
+                                    <article class="glass detail-card">
+                                        <h3>Réalisations</h3>
+                                        <ul class="detail-list">
+                                            <li><span class="rtag pro1">Pro 1A</span>Automatisation de mise à jour vers Windows 11 via Intune</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>Mise en place du serveur GLPI complet (cahier des charges, déploiement, recette)</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>Plan de Reprise / Continuité d'Activité (PRA/PCA)</li>
+                                        </ul>
+                                    </article>
+                                    <article class="glass detail-card">
+                                        <h3>Compétences mobilisées</h3>
+                                        <ul class="detail-list">
+                                            <li>Analyser les objectifs et les modalités d'organisation d'un projet</li>
+                                            <li>Planifier les activités</li>
+                                            <li>Évaluer les indicateurs de suivi d'un projet et analyser les écarts</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-links">
+                            <a class="inline-pill" href="./Tableau_de_synthese.pdf" download><i class="fa-solid fa-file-pdf" style="font-size:.6rem"></i> Tableau de synthèse</a>
+                            <a class="inline-pill" href="#entreprise"><i class="fa-solid fa-building" style="font-size:.6rem"></i> Culligan France</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloc-section reveal" id="bloc-5">
+                    <div class="glass" style="padding:1.8rem">
+                        <div class="block-layout">
+                            <div class="block-meta">
+                                <span class="block-kicker">Bloc 5</span>
+                                <p class="block-axis">Tests / déploiement / accompagnement</p>
+                                <span class="block-track">Services utilisables</span>
+                            </div>
+                            <div class="block-content">
+                                <h2>Mettre à disposition des utilisateurs un service informatique</h2>
+                                <p class="block-intro">J'ai participé à la préparation, aux tests et à la mise à disposition de services, avec une attention particulière à la qualité et à l'accompagnement des utilisateurs.</p>
+                                <div class="detail-grid">
+                                    <article class="glass detail-card">
+                                        <h3>Réalisations</h3>
+                                        <ul class="detail-list">
+                                            <li><span class="rtag formation">Formation</span>Mise en place d'un bastion avec accès VPN (BD, serveur WEB)</li>
+                                            <li><span class="rtag formation">Formation</span>Administration forêt AD, DHCP, DNS avec redondance</li>
+                                            <li><span class="rtag formation">Formation</span>Déploiement d'un serveur GLPI avec liaison LDAP</li>
+                                            <li><span class="rtag formation">Formation</span>Mise en place d'un serveur RADIUS et d'un PFSense</li>
+                                            <li><span class="rtag pro1">Pro 1A</span>Masterisation et installation de nouveaux postes</li>
+                                            <li><span class="rtag pro1">Pro 1A</span>Automatisation de mise à jour Windows 11 via Intune</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>Déploiement GLPI complet avec SSO et synchronisation Intune</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>Migration fileshare d'une agence</li>
+                                        </ul>
+                                    </article>
+                                    <article class="glass detail-card">
+                                        <h3>Compétences mobilisées</h3>
+                                        <ul class="detail-list">
+                                            <li>Réaliser les tests d'intégration et d'acceptation d'un service</li>
+                                            <li>Déployer un service</li>
+                                            <li>Accompagner les utilisateurs dans la mise en place d'un service</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-links">
+                            <a class="inline-pill" href="#xp"><i class="fa-solid fa-arrow-up" style="font-size:.6rem"></i> Parcours professionnel</a>
+                            <a class="inline-pill" href="./Tableau_de_synthese.pdf" download><i class="fa-solid fa-file-pdf" style="font-size:.6rem"></i> Tableau de synthèse</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloc-section reveal" id="bloc-6">
+                    <div class="glass" style="padding:1.8rem">
+                        <div class="block-layout">
+                            <div class="block-meta">
+                                <span class="block-kicker">Bloc 6</span>
+                                <p class="block-axis">Veille / certifications / identité pro</p>
+                                <span class="block-track">Projection professionnelle</span>
+                            </div>
+                            <div class="block-content">
+                                <h2>Organiser son développement professionnel</h2>
+                                <p class="block-intro">Mon parcours montre une démarche continue d'apprentissage autour de la cybersécurité et de l'infrastructure, avec un objectif professionnel orienté SOC / DefSec.</p>
+                                <div class="detail-grid">
+                                    <article class="glass detail-card">
+                                        <h3>Réalisations</h3>
+                                        <ul class="detail-list">
+                                            <li><span class="rtag formation">Formation</span>Création et maintien de mon portfolio (bietigermaxence.github.io)</li>
+                                            <li><span class="rtag formation">Formation</span>Actualisation de mon profil LinkedIn</li>
+                                            <li><span class="rtag formation">Formation</span>Veille technologique active (cybersécurité, IA, infrastructure)</li>
+                                            <li><span class="rtag pro1">Pro 1A</span>Obtention de la certification BTL1 (août 2025)</li>
+                                            <li><span class="rtag pro2">Pro 2A</span>Progression sur la certification CDSA</li>
+                                        </ul>
+                                    </article>
+                                    <article class="glass detail-card">
+                                        <h3>Compétences mobilisées</h3>
+                                        <ul class="detail-list">
+                                            <li>Mettre en place son environnement d'apprentissage personnel</li>
+                                            <li>Mettre en œuvre des outils et stratégies de veille informationnelle</li>
+                                            <li>Gérer son identité professionnelle</li>
+                                            <li>Développer son projet professionnel</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-links">
+                            <a class="inline-pill" href="#certs"><i class="fa-solid fa-certificate" style="font-size:.6rem"></i> Certifications</a>
+                            <a class="inline-pill" href="#veille"><i class="fa-solid fa-satellite-dish" style="font-size:.6rem"></i> Veille technologique</a>
+                            <a class="inline-pill" href="https://www.linkedin.com/in/maxence-bietiger-7b0ba0283/" target="_blank"><i class="fa-brands fa-linkedin" style="font-size:.6rem"></i> LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -251,19 +648,84 @@
         <div class="socials">
             <a href="https://github.com/BietigerMaxence" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
             <a href="https://www.linkedin.com/in/maxence-bietiger-7b0ba0283/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="mailto:bietigerm2@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            <a href="mailto:[EMAIL_ADDRESS]" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
     </footer>
 </div>
 
 <script>
-    const navLinks=document.querySelectorAll('nav a[data-section]');
-    const sections=document.querySelectorAll('section[id]');
-    function updateNav(){const sy=window.scrollY+120;let cur='';sections.forEach(s=>{if(s.offsetTop<=sy)cur=s.getAttribute('id')});navLinks.forEach(l=>l.classList.toggle('active',l.dataset.section===cur))}
-    window.addEventListener('scroll',updateNav,{passive:true});updateNav();
-    const reveals=document.querySelectorAll('.reveal');
-    const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}})},{threshold:.12});
-    reveals.forEach((el,i)=>{el.style.transitionDelay=`${(i%6)*.08}s`;ro.observe(el)});
+// Bloc tabs: switch active bloc when clicking sidebar links
+const blocLinks=document.querySelectorAll('.sidebar-map a');
+const blocSections=document.querySelectorAll('.bloc-section');
+function switchBloc(id){
+    blocSections.forEach(s=>s.classList.toggle('is-active',s.id===id));
+    blocLinks.forEach(l=>l.classList.toggle('is-active',l.getAttribute('href')==='#'+id));
+}
+blocLinks.forEach(link=>{
+    link.addEventListener('click',e=>{
+        e.preventDefault();
+        const id=link.getAttribute('href').slice(1);
+        switchBloc(id);
+        history.replaceState(null,'','#'+id);
+    });
+});
+// Init from URL hash if it points to a bloc
+if(location.hash.startsWith('#bloc-')){switchBloc(location.hash.slice(1))}
+const navLinks=document.querySelectorAll('nav a[data-section]');
+const sections=document.querySelectorAll('section[id]');
+const navEl=document.getElementById('mainNav');
+const navIndicator=document.getElementById('navIndicator');
+let navHovered=false;
+
+function moveIndicator(target){
+    if(!target)return;
+    const r=target.getBoundingClientRect();
+    const nr=navEl.getBoundingClientRect();
+    navIndicator.style.left=(r.left-nr.left)+'px';
+    navIndicator.style.top=(r.top-nr.top)+'px';
+    navIndicator.style.width=r.width+'px';
+    navIndicator.style.height=r.height+'px';
+    navIndicator.classList.add('visible');
+}
+
+navLinks.forEach(item=>{
+    item.addEventListener('mouseenter',()=>moveIndicator(item));
+});
+
+navEl.addEventListener('mouseenter',()=>{navHovered=true});
+navEl.addEventListener('mouseleave',()=>{
+    navHovered=false;
+    const active=navEl.querySelector('a.active');
+    if(active)moveIndicator(active);
+    else navIndicator.classList.remove('visible');
+});
+
+navEl.addEventListener('mousemove',e=>{
+    const r=navIndicator.getBoundingClientRect();
+    if(r.width===0)return;
+    const mx=((e.clientX-r.left)/r.width)*100;
+    const my=((e.clientY-r.top)/r.height)*100;
+    navIndicator.style.setProperty('--mx',mx+'%');
+    navIndicator.style.setProperty('--my',my+'%');
+});
+
+function updateNav(){
+    const sy=window.scrollY+120;let cur='';
+    sections.forEach(s=>{if(s.offsetTop<=sy)cur=s.getAttribute('id')});
+    navLinks.forEach(l=>l.classList.toggle('active',l.dataset.section===cur));
+    if(!navHovered){
+        const active=navEl.querySelector('a.active');
+        if(active)moveIndicator(active);
+        else navIndicator.classList.remove('visible');
+    }
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+window.addEventListener('load',()=>{updateNav();const a=navEl.querySelector('a.active');if(a)moveIndicator(a)});
+window.addEventListener('resize',()=>{const a=navEl.querySelector('a.active');if(a&&!navHovered)moveIndicator(a)});
+updateNav();
+const reveals=document.querySelectorAll('.reveal');
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}})},{threshold:.12});
+reveals.forEach((el,i)=>{el.style.transitionDelay=`${(i%6)*.08}s`;ro.observe(el)});
 </script>
 </body>
 </html>
